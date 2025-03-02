@@ -23,6 +23,7 @@ const buttonVariants = cva('inline-flex items-center justify-center gap-2 whites
 	}
 })
 
+// @ts-ignore
 type ButtonProps<T extends ValidComponent = 'button'> = VariantProps<typeof buttonVariants> & { class?: string | undefined; children?: JSX.Element };
 
 const Button = <T extends ValidComponent = 'button'>(

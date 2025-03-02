@@ -1,5 +1,4 @@
 import { Component, For, JSX } from 'solid-js';
-import LogoBookmark from '../assets/images/logo-bookmark.svg';
 import { navigationItems } from '../lib/data';
 
 const Footer: Component<JSX.HTMLAttributes<HTMLElement>> = (props) => {
