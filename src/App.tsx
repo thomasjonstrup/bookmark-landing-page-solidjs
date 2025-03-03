@@ -4,7 +4,7 @@ import Button from './components/Button';
 import {
 	Extension,
 	Feature as FeatureType,
-	Features,
+	features,
 	TabName,
 } from './lib/data';
 import Footer from './components/Footer';
@@ -41,20 +41,24 @@ function App() {
 
 	const memoedFeatures = createMemo<(FeatureType & { active: boolean })[]>(
 		() => {
-			return Features.map((feature) => {
+			return features.map((feature) => {
 				return { ...feature, active: feature.tab === activeTab() };
 			});
 		}
 	);
 
-	const activeTabFeature = createMemo<(FeatureType & { active: boolean } | undefined)>(
-		() => {
-			return Features.map((feature) => {
-				return { ...feature, active: feature.tab === activeTab() };
-			}).find((feature) => feature.active);
-		}
-	);
+	const activeTabContent = () => features.find(item => item.tab === activeTab());
 
+	console.log('features', features)
+
+	/* 	const activeTabFeature = createMemo<(FeatureType & { active: boolean } | undefined)>(
+			() => {
+				return Features.map((feature) => {
+					return { ...feature, active: feature.tab === activeTab() };
+				}).find((feature) => feature.active);
+			}
+		);
+	 */
 	return (
 		<>
 			<Header />
@@ -116,33 +120,27 @@ function App() {
 								}}
 							</For>
 						</div>
-						<Show when={activeTabFeature()}>
-							{(featureTab) => {
-								const feature = featureTab();
-								return (
-									<div class='grid grid-cols-1 md:grid-cols-2 items-center'>
-									<div class='flex flex-col gap-4 p-4 md:p-12'>
-										<h2 class='text-2xl font-semibold'>
-											{' '}
-											{feature.header}
-										</h2>
-										<p class='text-sm text-neutral md:text-base pb-6'>
-											{feature.description}
-										</p>
-										<Button>More Info</Button>
-									</div>
-									<div class='md:order-first p-4'>
-										<div class='tab-bg-img'>
-											<img
-												src={feature.icon}
-												alt='Illustration of bookmarking'
-											/>
-										</div>
+						<Show when={activeTabContent()}>
+							<div class='grid grid-cols-1 md:grid-cols-2 items-center'>
+								<div class='flex flex-col gap-4 p-4 md:p-12'>
+									<h2 class='text-2xl font-semibold'>
+										{' '}
+										{activeTabContent()?.header}
+									</h2>
+									<p class='text-sm text-neutral md:text-base pb-6'>
+										{activeTabContent()?.description}
+									</p>
+									<Button>More Info</Button>
+								</div>
+								<div class='md:order-first p-4'>
+									<div class='tab-bg-img'>
+										<img
+											src={activeTabContent()?.icon}
+											alt='Illustration of bookmarking'
+										/>
 									</div>
 								</div>
-								)
-							}}
-
+							</div>
 						</Show>
 					</div>
 				</section>

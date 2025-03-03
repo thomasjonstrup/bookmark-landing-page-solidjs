@@ -23,7 +23,7 @@ export type Feature = {
 
 export type TabName = 'simple' | 'speedy' | 'easy';
 
-export const Features: Feature[] = [
+export const features: Feature[] = [
 	{
 		icon: IllustrationFeaturesTab1,
 		name: 'Simple Bookmarking',
