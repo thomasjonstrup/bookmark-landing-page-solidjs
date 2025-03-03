@@ -6,6 +6,7 @@ import {
 	Feature as FeatureType,
 	features,
 	TabName,
+	faqList,
 } from './lib/data';
 import Footer from './components/Footer';
 
@@ -49,16 +50,6 @@ function App() {
 
 	const activeTabContent = () => features.find(item => item.tab === activeTab());
 
-	console.log('features', features)
-
-	/* 	const activeTabFeature = createMemo<(FeatureType & { active: boolean } | undefined)>(
-			() => {
-				return Features.map((feature) => {
-					return { ...feature, active: feature.tab === activeTab() };
-				}).find((feature) => feature.active);
-			}
-		);
-	 */
 	return (
 		<>
 			<Header />
@@ -196,63 +187,30 @@ function App() {
 				</section>
 				<section>
 					<div class='mx-auto lg:max-w-5xl xl:max-w-7xl px-2 sm:px-4'>
-						<div id='accordion-collapse' data-accordion='collapse'>
-							<h2 id='accordion-collapse-heading-1'>
-								<button
-									type='button'
-									class='flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3'
-									data-accordion-target='#accordion-collapse-body-1'
-									aria-expanded='true'
-									aria-controls='accordion-collapse-body-1'
-								>
-									<span>What is Flowbite?</span>
-									<svg
-										data-accordion-icon
-										class='w-3 h-3 rotate-180 shrink-0'
-										aria-hidden='true'
-										xmlns='http://www.w3.org/2000/svg'
-										fill='none'
-										viewBox='0 0 10 6'
-									>
-										<path
-											stroke='currentColor'
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											stroke-width='2'
-											d='M9 5 5 1 1 5'
-										/>
-									</svg>
-								</button>
-							</h2>
-							<div
-								id='accordion-collapse-body-1'
-								class='hidden'
-								aria-labelledby='accordion-collapse-heading-1'
-							>
-								<div class='p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900'>
-									<p class='mb-2 text-sm text-neutral md:text-base dark:text-gray-400'>
-										Flowbite is an open-source library of
-										interactive components built on top of
-										Tailwind CSS including buttons,
-										dropdowns, modals, navbars, and more.
-									</p>
-									<p class='text-sm text-neutral md:text-base dark:text-gray-400'>
-										Check out this guide to learn how to{' '}
-										<a
-											href='/docs/getting-started/introduction/'
-											class='text-blue-600 dark:text-blue-500 hover:underline'
-										>
-											get started
-										</a>{' '}
-										and start developing websites even
-										faster with components on top of
-										Tailwind CSS.
-									</p>
-								</div>
-							</div>
+						<h2 class='text-2xl font-semibold pb-4 text-center'>
+							Frequently Asked Questions
+						</h2>
+						<p class='text-sm text-neutral md:text-base pb-6 text-center'>Here are some of our FAQs. If you have any other questions you’d likeanswered please feel free to email us.</p>
+
+						<div class="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
+							<For each={faqList}>
+								{(faq) => (
+									<details class="group py-5">
+										<summary class="flex justify-between items-center font-medium cursor-pointer list-none">
+											<span>{faq.question}</span>
+											<span class="transition group-open:rotate-180">
+												<svg xmlns="http://www.w3.org/2000/svg" width="18" height="12"><path fill="none" stroke="#5267DF" stroke-width="3" d="M1 1l8 8 8-8"/></svg>
+											</span>
+										</summary>
+										<p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
+											{faq.answer}
+										</p>
+									</details>
+								)}
+							</For>
 						</div>
 
-						<Button class='px-4 py-2.5'>More Info</Button>
+						<Button class='px-4 py-2.5 mx-auto'>More Info</Button>
 					</div>
 				</section>
 				<section class='bg-primary text-white text-center p-8'>
